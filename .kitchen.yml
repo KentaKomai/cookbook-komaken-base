@@ -1,0 +1,25 @@
+---
+driver:
+  name: docker
+  use_sudo: false
+driver_config:
+  require_chef_omnibus: latest
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: centos-6.4
+    driver_config:
+      image: centos:6
+      platform: centos
+      privileged: true
+
+suites:
+  - name: default
+    run_list:
+      - recipe[cookbook-komaken-base::default]
+    verifier:
+      inspec_tests:
+        - test/recipes
+    attributes:
